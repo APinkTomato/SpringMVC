@@ -3,10 +3,7 @@ package com.eliska.SpringMVC.controller;
 import com.eliska.SpringMVC.model.UserEntity;
 import com.eliska.SpringMVC.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 import java.util.Optional;
@@ -47,5 +44,19 @@ public class APIController {
         return userService.searchByEmail(email);
     }
 
+    /*
+  GET - http://localhost:9090/api/createuser/testname/testemail@testdomain.com
+   */
+    @RequestMapping(value = {"/users/createuser/{username}/{email}"})
+    public UserEntity createUserFromPath(@PathVariable(required = true) String username, @PathVariable(required = true) String email) {
+        return userService.createUser(username, email);
+    }
 
+    /*
+    GET - pomocí
+     */
+    @GetMapping("/users/createuser")
+    public UserEntity createUserFromParamsGET(@RequestParam String username, @RequestParam String email) {
+        return userService.createUser(username, email);
+    }
 }

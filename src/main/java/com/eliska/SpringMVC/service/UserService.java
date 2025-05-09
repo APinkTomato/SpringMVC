@@ -34,4 +34,12 @@ public class UserService {
     public List<UserEntity> searchByEmail(String email) {
         return userRepository.findByEmailContaining(email);
     }
+
+    public UserEntity createUser(String username, String email){
+        UserEntity userEntity = new UserEntity();
+        userEntity.setUserName(username);
+        userEntity.setEmail(email);
+        return userRepository.save(userEntity);
+    }
+
 }
