@@ -12,21 +12,25 @@ import java.util.List;
 //@Table(name = "articles")
 public class UserEntity {
 
-    //@Column(name = "id_user")
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Getter
     private Long id;
 
     @Getter
     @Setter
-   // @NotBlank(message = "Uživatelské jméno je povinné pole")
+
     private String userName;
 
     @Getter
     @Setter
    // @Email
-    //@NotBlank(message = "E-mail je povinné pole")
+
     private String email;
+
+    @OneToMany(mappedBy = "author", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    private List<ArticleEntity> articles = new ArrayList<>();
 
     //ctor
     public UserEntity() {};

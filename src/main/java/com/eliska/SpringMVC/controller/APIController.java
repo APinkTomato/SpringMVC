@@ -1,6 +1,8 @@
 package com.eliska.SpringMVC.controller;
 
+import com.eliska.SpringMVC.model.ArticleEntity;
 import com.eliska.SpringMVC.model.UserEntity;
+import com.eliska.SpringMVC.service.ArticleService;
 import com.eliska.SpringMVC.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -14,6 +16,9 @@ public class APIController {
 
     @Autowired
     private UserService userService;
+
+    @Autowired
+    private ArticleService articleService;
 
     @GetMapping("/users/getall")
     public List<UserEntity> getAllUsers() {
@@ -58,5 +63,15 @@ public class APIController {
     @GetMapping("/users/createuser")
     public UserEntity createUserFromParamsGET(@RequestParam String username, @RequestParam String email) {
         return userService.createUser(username, email);
+    }
+    //Articles---------------------------------------------
+    @GetMapping("/articles/getall")
+    public List<ArticleEntity> getAllArticles() {
+        return articleService.getAllArticles();
+    }
+
+    @GetMapping("/articles/getbyuserid/{userId}")
+    public List<ArticleEntity> getByuUerid(@PathVariable(required = true) Long userId) {
+        return articleService.getArticlesByUser(userId);
     }
 }

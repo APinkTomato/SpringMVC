@@ -6,13 +6,18 @@ import org.springframework.stereotype.Component;
 
 import com.eliska.SpringMVC.SpringMvcApplication;
 import com.eliska.SpringMVC.model.UserEntity;
-//import com.eliska.SpringMVC.repository.ArticleRepository;
+import com.eliska.SpringMVC.repository.ArticleRepository;
 import com.eliska.SpringMVC.repository.UserRepository;
-//import com.eliska.SpringMVC.service.ArticleService;
+import com.eliska.SpringMVC.service.ArticleService;
 
 @Component
 public class SampleDataLoader implements CommandLineRunner {
 
+    @Autowired
+    ArticleService articleService;
+
+    @Autowired
+    ArticleRepository articleRepository;
 
     @Autowired
     UserRepository userRepository;
@@ -40,7 +45,16 @@ public class SampleDataLoader implements CommandLineRunner {
             //SpringMvcApplication.MyLog(String.format("Table UserEntity was empty, added seed data: %s", userRepository.count()));
         }
 
+        if (articleRepository.count() == 0) {
 
+            articleRepository.save(articleService.createArticle(1L,"Nadpis 1 uzivatele 1)", "Java is an object-oriented language, which means..."));
+            articleRepository.save(articleService.createArticle((long)1,"Nadpis 2 uzivatele 1", "Java is an object-oriented language, which means..."));
+            articleRepository.save(articleService.createArticle( (long)1,"Nadpis 3 uzivatele 1" , "Java is an object-oriented language, which means..."));
+            articleRepository.save(articleService.createArticle( (long)2,"Nadpis 1  uzivatele 2", "Java is an object-oriented language, which means..."));
+            articleRepository.save(articleService.createArticle((long)2,"Nadpis 2  uzivatele 2", "Java is an object-oriented language, which means..."));
+
+            //SpringMvcApplication.MyLog(String.format("Table Article was empty, added seed data: %s", articleRepository.count()));
+        }
 
     }
 
